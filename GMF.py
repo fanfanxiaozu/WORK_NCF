@@ -6,6 +6,10 @@ He Xiangnan et al. Neural Collaborative Filtering. In WWW 2017.
 
 @author: Xiangnan He (xiangnanhe@gmail.com)
 '''
+import os
+
+os.environ['KERAS_BACKEND'] = 'theano'
+os.environ['THEANO_FLAGS'] = 'device=cuda,floatX=float32'
 import numpy as np
 import theano.tensor as T
 import keras
