@@ -7,6 +7,7 @@ Processing datasets.
 import scipy.sparse as sp
 import numpy as np
 import os
+import bisect
 
 
 class Dataset(object):
@@ -65,7 +66,7 @@ class Dataset(object):
                     lines += str(pair)
                     for t in xrange(99):
                         j = np.random.randint(max_id)
-                        while (pair[0], j) in self.testRatings:
+                        while binary_search_loop(self.testRatings, (pair[0], j)) is not None:
                             j = np.random.randint(nums_test)
                         lines += '\t'
                         lines += str(j)
@@ -104,3 +105,16 @@ class Dataset(object):
                     mat[user, item] = 1.0
                 line = f.readline()
         return mat
+
+
+def binary_search_loop(lst, value):
+    low, high = 0, len(lst) - 1
+    while low <= high:
+        mid = (low + high) / 2
+        if lst[mid] < value:
+            low = mid + 1
+        elif lst[mid] > value:
+            high = mid - 1
+        else:
+            return mid
+    return None

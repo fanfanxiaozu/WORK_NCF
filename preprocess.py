@@ -7,6 +7,7 @@ if __name__ == '__main__':
         data = json.load(train_file)
     df = pd.DataFrame.from_dict(data)
     df = df[['user_id', 'click_article_id', 'ratings']]
+    df = df.sort_values(by=['user_id', 'click_article_id', 'ratings'])
     print df
     np.savetxt("Data/ecnu.train.rating", df.values, fmt='%d', delimiter='\t')
 
@@ -14,5 +15,6 @@ if __name__ == '__main__':
         data = json.load(train_file)
     df = pd.DataFrame.from_dict(data)
     df = df[['user_id', 'click_article_id']]
+    df = df.sort_values(by=['user_id', 'click_article_id'])
     print df
     np.savetxt("Data/ecnu.test.rating", df.values, fmt='%d', delimiter='\t')
